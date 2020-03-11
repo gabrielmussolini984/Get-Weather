@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <title>TesteSmarkio</title>
+</head>
+<body>
+  <div id="container">
+    <aside class="box">
+      <section class="headerBox">
+        <form action="#" onformchange="">
+          <input name="cidade" onkeyup="mudou(this.value)" type="text" placeholder="Digite a cidade">
+          <button type="submit">Enviar</button>
+        </form>
+      </section>
+      <section class="description">
+        <h2>São Francisco, EUA</h2>
+        <p>Sábado, 12:30 PM, Ensolarado</p>
+        <span>20°C <img src="http://openweathermap.org/img/wn/10d@2x.png" alt=""></span>
+      </section>
+    </aside>
+    <aside class="box">
+      <section class="headerBox2">
+        <h2>Top 5 cidade mais pesquisadas</h2>
+        <ul>
+          <li>Itajuba MG</li>
+          <li>Delfim Moreira MG</li>
+          <li>Campos do Jordão MG</li>
+          <li>São José dos Campos SP</li>
+          <li>Londes US</li>
+        </ul>
+      </section>
+      <section class="description2">
+        <ul>
+          <li>Itajuba MG, 9,26°C, céu limpo às 2 minutos atrás</li>
+          <li>Delfim Moreira MG, 9,26°C, céu limpo às 2 minutos atrás</li>
+          <li>Campos do Jordão MG, 9,26°C, céu limpo às 2 minutos atrás</li>
+          <li>São José dos Campos SP, 9,26°C, céu limpo às 2 minutos atrás</li>
+          <li>Londes US, 9,26°C, céu limpo às 2 minutos atrás</li>
+        </ul>
+      </section>
+
+    </aside>
+  </div>
+
+  <script>
+    const el = document.querySelector('form');
+   
+    el.addEventListener("submit", (e)=>{
+      e.preventDefault();
+    })
+    async function mudou(e) {
+    console.log(e)
+    var request = $.ajax({
+      url: "http://localhost:3000/",
+      type: "POST",
+      data: {nome: e},
+    })
+    .done(function(msg){
+      $("#resultado").html(msg);
+    })
+  }
+    
+    
+  </script>
+</body>
+</html>
