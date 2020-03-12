@@ -19,7 +19,7 @@
       <section class="description">
         <h2 class="city">São Francisco, EUA</h2>
         <p>Sábado, 12:30 PM, Ensolarado</p>
-        <span>20°C <img src="http://openweathermap.org/img/wn/10d@2x.png" alt=""></span>
+        <span>20°C <img class="icone-tempo" src="http://openweathermap.org/img/wn/10d@2x.png" alt=""></span>
       </section>
     </aside>
     <aside class="box">
@@ -72,6 +72,10 @@
         console.log(data)
         elCity.innerHTML = data.name;
         console.log(elCity);
+        const elIcone = document.querySelector('.icone-tempo');
+        console.log(elIcone)
+        console.log(data.weather[0].icon)
+        elIcone.setAttribute('src',`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`)
       }
     }
     
