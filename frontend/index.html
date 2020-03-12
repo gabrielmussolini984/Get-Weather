@@ -11,13 +11,13 @@
   <div id="container">
     <aside class="box">
       <section class="headerBox">
-        <form action="#" onformchange="">
-          <input name="cidade" onkeyup="mudou(this.value)" type="text" placeholder="Digite a cidade">
+        <form action="#" >
+          <input name="cidade" type="text" placeholder="Digite a cidade">
           <button type="submit">Enviar</button>
         </form>
       </section>
       <section class="description">
-        <h2>São Francisco, EUA</h2>
+        <h2 class="city">São Francisco, EUA</h2>
         <p>Sábado, 12:30 PM, Ensolarado</p>
         <span>20°C <img src="http://openweathermap.org/img/wn/10d@2x.png" alt=""></span>
       </section>
@@ -49,20 +49,31 @@
   <script>
     const el = document.querySelector('form');
    
-    el.addEventListener("submit", (e)=>{
+    el.addEventListener("submit", async (e)=>{
       e.preventDefault();
-    })
-    async function mudou(e) {
-    console.log(e)
-    var request = $.ajax({
-      url: "http://localhost:3000/",
-      type: "POST",
-      data: {nome: e},
-    })
-    .done(function(msg){
-      $("#resultado").html(msg);
-    })
-  }
+      getApi(e.target.elements[0].value);
+    });
+
+    const getApi = value => {
+      const request = $.ajax({
+        url: "http://localhost:3000",
+        type: "POST",
+        data: {city: value},
+      })
+      .done(function(msg){
+        $("#resultado").html(msg);
+        renders(msg)
+      })
+    }
+
+    const renders = (data) =>{
+      if (data !== 'error'){
+        const elCity = document.querySelector('.city');
+        console.log(data)
+        elCity.innerHTML = data.name;
+        console.log(elCity);
+      }
+    }
     
     
   </script>
