@@ -16,7 +16,16 @@ const postCity = async (req, res) => {
   }
 };
 
+const findTopCities = async (req, res) => {
+  try {
+    const arrayCities = await homeModel.findCities();
+    return res.json(arrayCities);
+  } catch (error) {
+    return res.json('error');
+  }
+};
 module.exports = {
   index,
   postCity,
+  findTopCities,
 };

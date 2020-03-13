@@ -7,7 +7,6 @@
 }
 body {
   height: 100vh;
-  background: yellow;
 }
 #container {
   display: flex;
@@ -53,7 +52,7 @@ body {
   border: 1px solid rgb(199, 198, 198);
 }
 .headerBox button{
-  width: 28%;
+  width:28.7%;
   height: 39px;
   background-color:#3ea4e7;
 	border-radius:2px;
@@ -132,8 +131,11 @@ body {
 }
 .description2 {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   padding: 20px;
+  height: 75%;
 }
 .description2 ul {
   list-style: none;
@@ -147,4 +149,10 @@ body {
   padding: 8px;
   margin: 1px;
   color: #575757;
+}
+.description2 h2{
+  font-size: 17px;
+  font-weight: bold;
+  color: #1b87cf;
+  margin: 10px 0 5px 0;
 }

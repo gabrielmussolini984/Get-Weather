@@ -17,9 +17,6 @@
         </form>
       </section>
       <section class="description">
-        <h2 class="city">São Francisco, EUA</h2>
-        <p>Sábado, 12:30 PM, Ensolarado</p>
-        <span class="temp">20°C <img class="icone-tempo" src="http://openweathermap.org/img/wn/10d@2x.png" alt=""></span>
       </section>
     </aside>
     <aside class="box">
@@ -34,6 +31,7 @@
         </ul>
       </section>
       <section class="description2">
+        <h2>Suas últimas buscas</h2>
         <ul>
           <li>Itajuba MG, 9,26°C, céu limpo às 2 minutos atrás</li>
           <li>Delfim Moreira MG, 9,26°C, céu limpo às 2 minutos atrás</li>
@@ -45,66 +43,6 @@
 
     </aside>
   </div>
-
-  <script>
-    const el = document.querySelector('form');
-   
-    el.addEventListener("submit", async (e)=>{
-      e.preventDefault();
-      getApi(e.target.elements[0].value);
-    });
-
-    const getApi = value => {
-      const request = $.ajax({
-        url: "http://localhost:3000",
-        type: "POST",
-        data: {city: value},
-      })
-      .done(function(msg){
-        $("#resultado").html(msg);
-        renders(msg)
-      })
-    }
-
-    const renders = data => {
-      if (data !== 'error'){
-        const elCity = document.querySelector('.city');
-        console.log(data)
-        elCity.innerHTML = data.name;
-        console.log(elCity);
-        const elIcone = document.querySelector('.icone-tempo');
-        const elDate = elIcone.parentElement;
-        elDate.innerHTML = data.main.temp+'°C';
-        elDate.appendChild(elIcone)
-        let dataNow = (new Date(data.dt * 1000));
-        console.log(dataNow)
-        console.log(dataNow.toLocaleTimeString('en-US'))
-        let diaSemana = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
-        console.log(diaSemana[dataNow.getDay()])
-        elIcone.setAttribute('src',`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`);
-        
-
-        // Atualiza LocalStorage
-        attLocalStorage(data);
-      }else {
-        const elCity = document.querySelector('.city');
-        elCity.innerHTML = 'Cidade Inválida';
-      }
-    }
-
-    const attLocalStorage = data => {
-      let storage = new Array;
-      if (localStorage.length != 0){
-        storage = JSON.parse(localStorage.getItem('city'));   
-      }      
-      if (storage.length == 5){
-        storage.pop();
-      }
-      storage.unshift({dados: `${data.name}, ${data.main.temp}°C, ${data.weather[0].description}`, hora: new Date});
-      localStorage.setItem('city', JSON.stringify(storage));
-    }
-    
-    
-  </script>
+  <script src="./index.js"></script>
 </body>
 </html>

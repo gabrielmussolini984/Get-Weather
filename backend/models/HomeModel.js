@@ -12,30 +12,34 @@ const createTable = `CREATE TABLE IF NOT EXISTS dados_city (
 `;
 
 const insert = async (weather) => {
-  // Se Não Existe a Tabela, Crie!
-  connection.query(createTable, (err, rows) => {
-    if (err) {
-      console.log(`Erro ao Criar a Tabela :${err}`);
-      return new Error('Erro ao criar tabela');
-    }
-  });
-  // Inserindo Dados no banco.
-  let count = 0;
-  await connection.execute('SELECT * FROM dados_city where name = ?',
-    [weather.name],
-    (err, results, fields) => {
-      // console.log(results.length);
-      count = results.length + 1;
-      console.log(count);
-      connection.execute(
-        'INSERT INTO dados_city (name, vezes) VALUES (?,?)',
-        [weather.name, count],
-        (err, results, fields) => {
-          console.log(results);
-        },
+  try {
+    // Create Table
+    const conn = await connection;
+    await conn.query(createTable);
+    // Insert or Update
+    const [rows] = await conn.execute('SELECT * FROM dados_city where name = ?', [weather.name]);
+    if (rows.length === 0) {
+      return await conn.execute(
+        'INSERT INTO dados_city (name, vezes) VALUES (?,?)', [weather.name, 1],
       );
-    });
+    }
+    return await conn.execute(`UPDATE dados_city SET vezes = (?) WHERE name = '${weather.name}'`, [rows[0].vezes + 1]);
+    // await conn.end();
+  } catch (error) {
+    return new Error(error);
+  }
+};
+
+const findCities = async () => {
+  try {
+    const conn = await connection;
+    const [rows] = await conn.execute('SELECT * FROM dados_city ORDER BY vezes DESC LIMIT 5');
+    return rows;
+  } catch (error) {
+    return new Error(error);
+  }
 };
 module.exports = {
   insert,
+  findCities,
 };
