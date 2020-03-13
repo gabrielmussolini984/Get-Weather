@@ -15,7 +15,7 @@ npm i
 npm start
 ```
 
->Para utilizar a aplicação basta digitar o nome de uma cidade e apertar enviar ou apertar enter.
+>Para utilizar a aplicação basta abrir o front end no navegador (index.hml) e digitar o nome de uma cidade e submeter o formulário com o nome da cidade.
 
 ## Updates Futuros
 
