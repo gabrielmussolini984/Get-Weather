@@ -1,4 +1,4 @@
-# Teste Smarkio Weather
+# Get Weather
 
 Uma aplicação que com a entrada do usuário, ele busca em uma API externa, o clima da cidade digitada.
 Gera também um histórico armazenado no localStorage do navegador, para o usuário ver suas últimas pesquisas.
