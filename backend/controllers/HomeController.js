@@ -1,5 +1,6 @@
 const axios = require('axios');
 const homeModel = require('../models/HomeModel');
+require('dotenv').config();
 
 const index = (req, res) => {
   res.json('teste');
