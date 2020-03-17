@@ -10,7 +10,7 @@ el.addEventListener("submit", async (e)=>{
 
 const getApi = value => {
   const request = $.ajax({
-    url: "http://localhost:3000",
+    url: "https://weatherapi.gabrielmussolini.com.br",
     type: "POST",
     data: {city: value},
   })
@@ -22,7 +22,7 @@ const getApi = value => {
 
 const getTopCities = () => {
   const request = $.ajax({
-    url: "http://localhost:3000/topcities",
+    url: "https://weatherapi.gabrielmussolini.com.br/topcities",
     type: "GET"
   })
   .done(function(msg){
