@@ -46,6 +46,7 @@ const renders = data => {
   if (data !== 'error'){
     addDescription(data)
     attLocalStorage(data);
+    getTopCities();
   }else {
     addDescription(data)
   }
