@@ -14,7 +14,7 @@ const createTable = `CREATE TABLE IF NOT EXISTS dados_city (
 const insert = async (weather) => {
   try {
     // Create Table
-    const conn = await connection;
+    const conn = await connection();
     await conn.query(createTable);
     // Insert or Update
     const [rows] = await conn.execute('SELECT * FROM dados_city where name = ?', [weather.name]);
@@ -24,7 +24,6 @@ const insert = async (weather) => {
       );
     }
     await conn.execute(`UPDATE dados_city SET vezes = (?) WHERE name = '${weather.name}'`, [rows[0].vezes + 1]);
-    await conn.end();
     return;
   } catch (error) {
     return new Error(error);
@@ -33,8 +32,7 @@ const insert = async (weather) => {
 
 const findCities = async () => {
   try {
-    const conn = await connection;
-
+    const conn = await connection();
     const [rows, fields] = await conn.execute('SELECT * FROM dados_city ORDER BY vezes DESC LIMIT 5');
     await conn.end();
     return rows;
