@@ -33,7 +33,7 @@ const insert = async (weather) => {
 const findCities = async () => {
   try {
     const conn = await connection;
-    const [rows] = await conn.execute('SELECT * FROM dados_city ORDER BY vezes DESC LIMIT 5');
+    const [rows] = await conn.query('SELECT * FROM dados_city ORDER BY vezes DESC LIMIT 5');
     return rows;
   } catch (error) {
     return new Error(error);
