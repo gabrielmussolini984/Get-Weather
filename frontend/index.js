@@ -27,6 +27,7 @@ const getTopCities = () => {
   })
   .done(function(msg){
     $("#resultado").html(msg);
+    console.log(msg)
     renderTopCities(msg)
   })
 }
@@ -116,5 +117,5 @@ const setHistory = () => {
   });
 }
 
-window.onload = setHistory();
+window.onload = setHistory;
 window.onload = getTopCities;
