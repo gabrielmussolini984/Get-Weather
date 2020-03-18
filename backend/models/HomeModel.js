@@ -23,8 +23,9 @@ const insert = async (weather) => {
         'INSERT INTO dados_city (name, vezes) VALUES (?,?)', [weather.name, 1],
       );
     }
-    return await conn.execute(`UPDATE dados_city SET vezes = (?) WHERE name = '${weather.name}'`, [rows[0].vezes + 1]);
-    // await conn.end();
+    await conn.execute(`UPDATE dados_city SET vezes = (?) WHERE name = '${weather.name}'`, [rows[0].vezes + 1]);
+    await conn.end();
+    return;
   } catch (error) {
     return new Error(error);
   }
@@ -33,7 +34,9 @@ const insert = async (weather) => {
 const findCities = async () => {
   try {
     const conn = await connection;
-    const [rows] = await conn.query('SELECT * FROM dados_city ORDER BY vezes DESC LIMIT 5');
+
+    const [rows, fields] = await conn.execute('SELECT * FROM dados_city ORDER BY vezes DESC LIMIT 5');
+    await conn.end();
     return rows;
   } catch (error) {
     return new Error(error);
