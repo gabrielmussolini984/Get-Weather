@@ -27,7 +27,6 @@ const getTopCities = () => {
   })
   .done(function(msg){
     $("#resultado").html(msg);
-    console.log(msg)
     renderTopCities(msg)
   })
 }
@@ -45,7 +44,6 @@ const renderTopCities = data => {
 
 const renders = data => {
   if (data !== 'error'){
-    console.log('veio aqui')
     addDescription(data)
     attLocalStorage(data);
   }else {
@@ -99,19 +97,16 @@ const attLocalStorage = data => {
 const setHistory = () => {
   const elSection = document.querySelector('.description2');
   const elListHistory = elSection.lastElementChild;
-  console.log(elListHistory)
   elListHistory.innerHTML = '';
   let local = localStorage.getItem('city');
   local = JSON.parse(local);
   
   local.forEach(element => {
     const elLi = document.createElement('li');
-    console.log(new Date(element.hora))
     const date1 = new Date;
     const date2 = new Date(element.hora);
     const diff = Math.abs(date1.getTime() - date2.getTime());
     const min = Math.round(diff / (1000 * 60));
-    console.log(diff / (1000 * 60 * 60))
     elLi.innerHTML = element.dados+', há '+min+' minutos';
     elListHistory.appendChild(elLi);
   });
